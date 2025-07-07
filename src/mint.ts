@@ -40,6 +40,7 @@ export async function mintCoin(title: string, file: File): Promise<boolean> {
     }
     return true;
   } catch (error) {
+    console.log(error);
     feedback.textContent = "Error";
     return false;
   }
