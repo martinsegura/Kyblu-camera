@@ -20,25 +20,25 @@ let r = 2;
 let g = 2;
 let b = 2;
 
+
 window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
                                window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
   const switchButton = document.getElementById("switch-button");
 
-  const guiControls = document.getElementById("gui_controls");
+  
   const aspectButton = document.getElementById("aspect-button");
   const saveButton = document.getElementById("save-button");
   const discardButton = document.getElementById("discard-button");
   const pauseButton = document.getElementById("pause-button");
   const feedback = document.getElementById("feedback");
+  const spinner = document.getElementById("spinner");
 document.addEventListener('DOMContentLoaded', () => {
 
     
   pauseButton.addEventListener('click', pauseVideo);
 
-  // switchButton.addEventListener('click', emitWalletAddress);
   saveButton.addEventListener('click', prepareCoin);
   discardButton.addEventListener('click', playVideo);
-  // paletaButton.addEventListener('click', paleta);
 
 
 });
@@ -70,17 +70,6 @@ video.addEventListener('play', () => {
   requestAnimationFrame(step);
 });
 
-const switchCamera = () => {
-  switch (constraints.video.facingMode) {
-    case "user":
-      constraints.video = { facingMode: "environment" };
-      break
-    case "environment":
-      constraints.video = { facingMode: "user" };
-  }
-  getMedia();
-}
-
 const scaleImage = (image) => {
   let newHeight, newWidth
   if (image.videoWidth > image.videoHeight) {
@@ -93,9 +82,6 @@ const scaleImage = (image) => {
   return [newHeight, newWidth];
 }
 
-const setImageWidth = (originalHeight, originalWidth, newHeight) => {
-  return Math.floor((originalWidth * newHeight) / originalHeight);
-}
 
 const colourOrderedDithering = (colourPalette) => {
   const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
@@ -160,10 +146,6 @@ const decomposeImage = (image, width) => {
   return newImageArray;
 }
 
-// column = width
-// row = height 
-
-//hace la funcion de re escalar
 const nearestNeighbourInterpolation = (image) => {
   const matrix = decomposeImage(image.data, image.width);
   let newSizeHeightMatrix = matrix.length * upscale;
@@ -214,11 +196,33 @@ const playVideo = () => {
 }
 
 async function prepareCoin(){
-  const title = 'Kyblu Cam Shot #'+Math.random(round(1,55555));
+  const buttons = document.querySelectorAll(".palette-button");
+  const overlay = document.getElementById("overlay");
+
+
+  saveButton.disabled = true;
+  discardButton.disabled = true;
+  buttons.forEach(b => b.disabled = true);
+  
+  overlay.classList.remove("hidden");
+  feedback.innerHTML = "Preparing mint";
+  feedback.classList.remove("hide-element");
+
+  
+  const title = 'Kyblu Cam Shot #'+Math.floor(Math.random() * (55555 - 0 + 1)) + 0;
   let file = await savePhoto();
+  mintCoin(title, file).then(result => {
+    if (result === true) {
+      setTimeout(() => {
+        resetUI();
+      }, 2000);
 
-  mintCoin(title, file);
-
+    } else {
+      setTimeout(() => {
+        resetUIFail()
+      }, 2000);
+    }
+});
 }
 
 async function savePhoto() {
@@ -294,7 +298,7 @@ const palettes = {
       [255, 255, 255],
     ],
     r: 2,
-    g: 2.2,
+    g: 2,
     b: 2
   },
   "Pinkyblu": {
@@ -392,12 +396,36 @@ renderPalettesWithIDs(palettes, (selectedPalette, id) => {
 
 
 function resetUI() {
+  playVideo();
   aspectButton.classList.remove("hide-element");
+  pauseButton.classList.remove("hide-element");
+  switchButton.classList.remove("hide-element");
+
   saveButton.classList.add("hide-element");
   discardButton.classList.add("hide-element");
-  submitButton.classList.add("hide-element");
+  
+  const buttons = document.querySelectorAll(".palette-button");
+  const overlay = document.getElementById("overlay");
+
+
+  spinner.classList.add("hide-element");
   feedback.classList.add("hide-element");
-  input.value = "";
+  overlay.classList.add("hidden");
+  buttons.forEach(b => b.disabled = false);
+}
+
+function resetUIFail(){
+  saveButton.disabled = false;
+  discardButton.disabled = false;
+
+  const buttons = document.querySelectorAll(".palette-button");
+  const overlay = document.getElementById("overlay");
+
+
+  spinner.classList.add("hide-element");
+  feedback.classList.add("hide-element");
+  overlay.classList.add("hidden");
+  buttons.forEach(b => b.disabled = false);
 }
 
 pauseButton.addEventListener("click", () => {
@@ -411,9 +439,8 @@ discardButton.addEventListener("click", () => {
 });
 
 saveButton.addEventListener("click", () => {
+  spinner.classList.remove("hide-element");
   feedback.classList.remove("hide-element");
-  saveButton.classList.add("hide-element");
-  discardButton.classList.add("hide-element");
 });
 
 
@@ -457,3 +484,28 @@ document.getElementById("aspect-button").addEventListener("click", () => {
 
 updateCanvasMode();
 
+let currentFacingMode = "user";
+let currentStream = null;
+
+async function startCamera(facingMode) {
+  if (currentStream) {
+    currentStream.getTracks().forEach(track => track.stop());
+  }
+
+  try {
+    const stream = await navigator.mediaDevices.getUserMedia({
+      video: { facingMode: facingMode }
+    });
+    video.srcObject = stream;
+    currentStream = stream;
+  } catch (err) {
+    console.error("Error al acceder a la cámara:", err);
+  }
+}
+
+switchButton.addEventListener("click", () => {
+  currentFacingMode = currentFacingMode === "user" ? "environment" : "user";
+  startCamera(currentFacingMode);
+});
+
+startCamera(currentFacingMode);
