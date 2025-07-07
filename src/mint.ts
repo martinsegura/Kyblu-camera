@@ -4,19 +4,19 @@ import { createCoin } from "@zoralabs/coins-sdk";
 import { publicClient, walletClient } from "./config";
 setApiKey("zora_api_17391ddb71ba589feb1361f82de0ab0109c38588357d25ae8c9eae44b4a1d2ca");
 
-const feedback = document.getElementById("feedback");
+const feedback = document.getElementById("feedback")!;
 
 export async function mintCoin(title: string, file: File): Promise<boolean> {
   feedback.textContent = "Preparing transaction";
   const [address] = await walletClient.requestAddresses();
-  walletClient.account = address as `0x${string}`;
+  
 
   const { createMetadataParameters } = await createMetadataBuilder()
     .withName(title)
     .withSymbol(title.slice(0,4).toUpperCase())
     .withDescription("")
     .withImage(file)
-    .upload(createZoraUploaderForCreator(address as Address));
+    .upload(createZoraUploaderForCreator(address as `0x${string}`));
 
   const coinParams = {
     ...createMetadataParameters,

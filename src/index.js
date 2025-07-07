@@ -1,5 +1,6 @@
 import { mintCoin } from "./mint";
 
+document.getElementById("start-button").addEventListener("click", getMedia);
 const canvas = document.getElementById('canvas-id');
 const ctx = canvas.getContext('2d');
 const video = document.querySelector('video');
