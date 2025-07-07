@@ -1,0 +1,273 @@
+html, body {
+  margin: 0px;
+  padding: 0px;
+  background: #110f13;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  height: 100%;
+}
+
+#vid_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  left: 0;
+}
+
+#canvas-wrapper{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+}
+
+#canvas-id {
+  display: block;
+  /* position: fixed; */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%; 
+  z-index: 0; 
+  image-rendering: pixelated;  
+}
+
+.display{
+  display: block;
+}
+
+.position{
+  position: fixed;
+}
+
+
+#cam_items{
+  position: fixed; /* o 'fixed' si querés que se quede al hacer scroll */
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  bottom: 2vh;
+  transform: translateX(-50%);
+  left: 50%;
+  z-index: 10;
+}
+
+#palettes_selector{
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  /* overflow-x: auto; */
+  /* width: 75vw; */
+}
+
+#gui_controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  min-width: 550px;
+  min-height: 250px;
+}
+
+#video_overlay {
+  position: fixed;
+  display: none;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  z-index: 10;
+  background-color: #111;
+}
+
+video {
+  display: none;
+}
+
+.palette-button{
+  color: aqua;
+  margin: 15px;
+  /* width: 5vh; */
+  /* height: 5vh; */
+  padding-left: 3vw;
+  padding-right: 3vw;
+  padding-top: 3vw;
+  padding-bottom: 3vw;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.palette-preview {
+  display: grid;
+  width: 100%;
+  height: 100%;
+  gap: 1px;
+}
+
+button {
+  border-style: none;
+  /* outline: none; */
+  /* position: absolute; */
+  /* color: white; */
+  /* background: transparent; */
+  background: none;
+  /* border: solid 2px #fff; */
+  background-repeat: no-repeat;
+  padding: 0;
+  background-position: center center;
+  /* width: 15vw; */
+  box-shadow: 8px 8px 16px rgba(0, 0, 0, 0.6);
+transition: transform 0.1s ease;
+}
+
+button:active{
+  background-color: rgba(255, 255, 255, 0.3);
+  transform: scale(0.95);
+}
+
+.takePhotoButton {
+  /* left: calc(50% - 40px); */
+  /* top: calc(50% - 40px); */
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  border: solid 10px #fff;
+  margin-left: 15px ;
+  margin-right: 15px;
+  box-shadow: 8px 8px 16px rgba(0, 0, 0, 0.3);
+
+}
+
+.takePhotoButton:active {
+  background-color: #fff;
+}
+
+.switchCameraButton {
+  /* border: solid 5px #d5d5d5; */
+  width: 120px;
+  height: 120px;
+  margin-right: 15px;
+  margin-left: 15px ;
+  border-radius: 50%;
+}
+
+.optionsButtonsSize{
+  width: 150px;
+  height: 150px;
+}
+
+.switchCameraButton[aria-pressed='true'] {
+}
+
+.palette-selector {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 10px;
+}
+
+.palette-button {
+  width: 64px;
+  height: 64px;
+  padding: 4px;
+  border: 2px solid #fff;
+  border-radius: 5px;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: border 0.2s;
+}
+
+.palette-preview {
+  display: grid;
+  width: 100%;
+  height: 100%;
+  gap: 1px;
+}
+
+.palette-button.active {
+  border: 2px solid #00ccff;
+  box-shadow: 0 0 4px #00ccff;
+}
+
+.hide-element {
+  display: none;
+}
+
+
+@media screen and (orientation: portrait) {
+  /* portrait-specific styles */
+
+  /* video_container (video) doesn't respect height...
+       so we will fill it in completely in portrait mode
+    */
+  #vid_container {
+    width: 100%;
+    height: 80%;
+  }
+
+  #gui_controls {
+    width: 100%;
+    height: 20%;
+    left: 0;
+  }
+
+  #switchCameraButton {
+    left: calc(20% - 32px);
+    top: calc(50% - 32px);
+  }
+
+  #toggleFullScreenButton {
+    left: calc(80% - 32px);
+    top: calc(50% - 32px);
+  }
+}
+
+
+
+
+
+@media screen and (orientation: landscape) {
+  #vid_container {
+    width: 80%;
+    height: 100%;
+  }
+
+  #vid_container.left {
+    left: 20%;
+  }
+
+  /* we default to right */
+  #gui_controls {
+    width: 20%;
+    height: 100%;
+    right: 0;
+  }
+
+  /* for the lefties */
+  #gui_controls.left {
+    left: 0;
+  }
+
+  #switchCameraButton {
+    left: calc(50% - 32px);
+    top: calc(18% - 32px);
+  }
+
+  #toggleFullScreenButton {
+    left: calc(50% - 32px);
+    top: calc(82% - 32px);
+  }
+}
