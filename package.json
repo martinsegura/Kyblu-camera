@@ -1,5 +1,5 @@
 {
-  "name": "farcaster-zora-app",
+  "name": "Kyblu-camera",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -14,7 +14,6 @@
   },
   "dependencies": {
     "@farcaster/frame-sdk": "^0.0.64",
-    "@lighthouse-web3/sdk": "^0.4.0",
     "@zoralabs/coins-sdk": "^0.2.8",
     "viem": "^2.31.3"
   }
