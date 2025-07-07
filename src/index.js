@@ -209,7 +209,7 @@ async function prepareCoin(){
   feedback.classList.remove("hide-element");
 
   
-  const title = 'Kyblu Cam Shot #'+Math.floor(Math.random() * (55555 - 0 + 1)) + 0;
+  const title = 'Kyblu Shot #'+Math.floor(Math.random() * (55555 - 0 + 1)) + 0;
   let file = await savePhoto();
   mintCoin(title, file).then(result => {
     if (result === true) {
