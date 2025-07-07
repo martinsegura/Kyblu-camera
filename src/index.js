@@ -1,6 +1,5 @@
 import { mintCoin } from "./mint";
 
-document.getElementById("start-button").addEventListener("click", getMedia);
 const canvas = document.getElementById('canvas-id');
 const ctx = canvas.getContext('2d');
 const video = document.querySelector('video');
@@ -35,6 +34,7 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequest
   const spinner = document.getElementById("spinner");
 document.addEventListener('DOMContentLoaded', () => {
 
+document.getElementById("start-button").addEventListener("click", getMedia);
     
   pauseButton.addEventListener('click', pauseVideo);
 
