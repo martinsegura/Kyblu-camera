@@ -45,15 +45,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 const getMedia = () => {
+  const constraints = {
+    video: {
+      facingMode: { ideal: "user" } // "environment" para la cámara trasera
+    },
+    audio: false
+  };
+
   navigator.mediaDevices.getUserMedia(constraints)
-  .then(function(mediaStream) {
-    video.srcObject = mediaStream;
-    video.onloadedmetadata = function(e) {
-      video.play();
-    };
-  })
-  .catch(function(err) { console.log(err.name + ": " + err.message); }); 
-}
+    .then((mediaStream) => {
+      video.srcObject = mediaStream;
+      video.setAttribute("playsinline", "true"); // Crucial para iOS
+      video.onloadedmetadata = () => {
+        video.play().catch(err => console.error("Error al hacer play:", err));
+      };
+    })
+    .catch((err) => {
+      console.error("Error al acceder a la cámara:", err.name, err.message);
+    });
+};
 
 getMedia();
 
