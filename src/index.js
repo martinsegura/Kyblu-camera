@@ -1,10 +1,17 @@
 import {mintCoin} from "./mint";
 import { sdk } from '@farcaster/miniapp-sdk';
 
-// await sdk.actions.ready();
-sdk.on('ready', async () => {
-  console.log("Evento 'ready' del SDK recibido");
-  // Aquí tu lógica segura
+document.addEventListener('DOMContentLoaded', async () => {
+  try {
+    // Espera a que el SDK esté listo
+    await sdk.actions.ready(); 
+    console.log("SDK listo 🚀");
+
+    // Tu lógica aquí (ej: mostrar botones, iniciar flujos)
+    initApp();
+  } catch (error) {
+    console.error("Error al inicializar SDK:", error);
+  }
 });
 
 const canvas = document.getElementById('canvas-id');
@@ -46,7 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   saveButton.addEventListener('click', prepareCoin);
   discardButton.addEventListener('click', playVideo);
-sdk.actions.ready();
+
 
 });
 

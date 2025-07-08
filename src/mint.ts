@@ -2,9 +2,7 @@ import { createMetadataBuilder,  createZoraUploaderForCreator, DeployCurrency, }
 import { setApiKey } from "@zoralabs/coins-sdk";
 import { createCoin } from "@zoralabs/coins-sdk";
 import { publicClient, getWalletClient} from "./config";
-import { sdk } from '@farcaster/miniapp-sdk';
 
-await sdk.actions.ready();
 setApiKey("zora_api_17391ddb71ba589feb1361f82de0ab0109c38588357d25ae8c9eae44b4a1d2ca");
 
 const feedback = document.getElementById("feedback")!;
