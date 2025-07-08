@@ -8,7 +8,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     console.log("SDK listo 🚀");
 
     // Tu lógica aquí (ej: mostrar botones, iniciar flujos)
-    initApp();
   } catch (error) {
     console.error("Error al inicializar SDK:", error);
   }
