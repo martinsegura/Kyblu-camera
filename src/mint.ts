@@ -14,6 +14,7 @@ export async function mintCoin(title: string, file: File): Promise<boolean> {
   try{
     const address = (await getWalletClient()).account.address;
   }catch(error){
+    feedback.textContent = "Wallet not found";
     return false;
   }
 
