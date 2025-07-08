@@ -524,8 +524,8 @@ function updateCanvasMode() {
     canvas.classList.remove("display");
     canvas.classList.add("position");
     canvas.style.height = "100vh";
-    // canvas.style.width = `${(9 / 16) * 100}vh`;
-    canvas.style.width = "100vw";
+    canvas.style.width = `${(9 / 16) * 100}vh`;
+    // canvas.style.width = "100vw";
   }
 }
 

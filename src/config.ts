@@ -17,14 +17,14 @@ export async function getWalletClient() {
     throw new Error("No se detectó wallet de Farcaster. ¿Estás dentro de una Mini App?");
   }
 
-  const accounts = await provider!.request({ method: "eth_requestAccounts" });
+  const accounts = await provider.request({ method: "eth_requestAccounts" });
   if (!accounts || accounts.length === 0) {
     throw new Error("No hay cuentas disponibles de Farcaster");
   }
 
   return createWalletClient({
     chain: base,
-    transport: custom(provider!),
+    transport: custom(provider),
     account: accounts[0] as `0x${string}`,
   });
 }
