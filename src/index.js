@@ -1,4 +1,4 @@
-// import { mintCoin } from "./mint";
+import { mintCoin } from "./mint";
 
 const canvas = document.getElementById('canvas-id');
 const ctx = canvas.getContext('2d');
@@ -48,7 +48,7 @@ document.getElementById("start-button").addEventListener("click", getMedia);
 const getMedia = () => {
   const constraints = {
     video: {
-      facingMode: { ideal: "user" } // "environment" para la cámara trasera
+      facingMode: { ideal: "user" }
     },
     audio: false
   };
@@ -56,7 +56,7 @@ const getMedia = () => {
   navigator.mediaDevices.getUserMedia(constraints)
     .then((mediaStream) => {
       video.srcObject = mediaStream;
-      video.setAttribute("playsinline", "true"); // Crucial para iOS
+      video.setAttribute("playsinline", "true");
       video.onloadedmetadata = () => {
         video.play().catch(err => console.error("Error al hacer play:", err));
       };
@@ -207,34 +207,33 @@ const playVideo = () => {
 }
 
 async function prepareCoin(){
-  console.log("js andando");
-//   const buttons = document.querySelectorAll(".palette-button");
-//   const overlay = document.getElementById("overlay");
+  const buttons = document.querySelectorAll(".palette-button");
+  const overlay = document.getElementById("overlay");
 
 
-//   saveButton.disabled = true;
-//   discardButton.disabled = true;
-//   buttons.forEach(b => b.disabled = true);
+  saveButton.disabled = true;
+  discardButton.disabled = true;
+  buttons.forEach(b => b.disabled = true);
   
-//   overlay.classList.remove("hidden");
-//   feedback.innerHTML = "Preparing mint";
-//   feedback.classList.remove("hide-element");
+  overlay.classList.remove("hidden");
+  feedback.innerHTML = "Preparing mint";
+  feedback.classList.remove("hide-element");
 
   
-//   const title = 'Kyblu Shot #'+Math.floor(Math.random() * (55555 - 0 + 1)) + 0;
-//   let file = await savePhoto();
-//   mintCoin(title, file).then(result => {
-//     if (result === true) {
-//       setTimeout(() => {
-//         resetUI();
-//       }, 2000);
+  const title = 'Kyblu Shot #'+Math.floor(Math.random() * (55555 - 0 + 1)) + 0;
+  let file = await savePhoto();
+  mintCoin(title, file).then(result => {
+    if (result === true) {
+      setTimeout(() => {
+        resetUI();
+      }, 2000);
 
-//     } else {
-//       setTimeout(() => {
-//         resetUIFail()
-//       }, 2000);
-//     }
-// });
+    } else {
+      setTimeout(() => {
+        resetUIFail()
+      }, 2000);
+    }
+});
 }
 
 async function savePhoto() {
@@ -456,7 +455,6 @@ saveButton.addEventListener("click", () => {
 });
 
 
-const wrapper = document.getElementById("canvas-wrapper");
 
 let mode = "portrait"; 
 

@@ -258,6 +258,10 @@ button:active{
   to { transform: rotate(360deg); }
 }
 
+#pruebas{
+  font-size: 5rem;
+}
+
 @media screen and (orientation: portrait) {
   /* portrait-specific styles */
 

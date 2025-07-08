@@ -1,7 +1,7 @@
 import { createMetadataBuilder,  createZoraUploaderForCreator, DeployCurrency, } from "@zoralabs/coins-sdk";
 import { setApiKey } from "@zoralabs/coins-sdk";
 import { createCoin } from "@zoralabs/coins-sdk";
-import { publicClient, walletClient } from "./config";
+import { publicClient, getWalletClient} from "./config";
 
 setApiKey("zora_api_17391ddb71ba589feb1361f82de0ab0109c38588357d25ae8c9eae44b4a1d2ca");
 
@@ -9,8 +9,9 @@ const feedback = document.getElementById("feedback")!;
 
 export async function mintCoin(title: string, file: File): Promise<boolean> {
   feedback.textContent = "Preparing transaction";
-  const [address] = await walletClient.requestAddresses();
-  // const wallet = walletClient.account;
+  // const [address] = await walletClient.requestAddresses();
+  const address = (await getWalletClient()).account.address;
+  console.log(address);
 
   const { createMetadataParameters } = await createMetadataBuilder()
     .withName(title)
@@ -23,7 +24,7 @@ export async function mintCoin(title: string, file: File): Promise<boolean> {
     ...createMetadataParameters,
     payoutRecipient: address as `0x${string}`,
     platformReferrer: "0x5c67C59c850afB2fB2aaCe4C3E03A222b992266C" as `0x${string}`,
-    chainId: walletClient.chain.id,
+    chainId: (await getWalletClient()).chain.id,
     currency: DeployCurrency.ETH,
   };
 
@@ -31,6 +32,7 @@ export async function mintCoin(title: string, file: File): Promise<boolean> {
   try {
     
     feedback.textContent = "Waiting confirmation";
+    const walletClient = await getWalletClient();
     const result = await createCoin(coinParams, walletClient, publicClient);
     if(result.hash){
       feedback.textContent = "Creating";
