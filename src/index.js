@@ -217,20 +217,40 @@ const playVideo = () => {
 }
 
 saveButton.addEventListener('click', async () => {
-  if (await isWalletConnected()) {
-    prepareCoin();
-  } else {
-    const walletClient = await connectWallet();
-    if (walletClient) {
-      await prepareCoin(); // Ejecuta mint después de conectar
-    } else {
-      overlay.classList.remove("hidden");
+//   if (await isWalletConnected()) {
+//     prepareCoin();
+//   } else {
+//     const walletClient = await connectWallet();
+//     if (walletClient) {
+//       await prepareCoin(); 
+//     } else {
+//       overlay.classList.remove("hidden");
+//       feedback.innerHTML = "Wallet not sync";
+//       feedback.classList.remove("hide-element");
+//       setTimeout(() => {
+//         resetUIFail()
+//       }, 2000);
+//     }
+//   }
+// });
+const connection = await connectWallet();
+  
+  if (!connection) {
+    overlay.classList.remove("hidden");
       feedback.innerHTML = "Wallet not sync";
       feedback.classList.remove("hide-element");
       setTimeout(() => {
         resetUIFail()
       }, 2000);
-    }
+    return;
+  }
+
+  if (connection.type === 'farcaster') {
+    console.log("Minteando con Farcaster:", connection.address);
+    prepareCoin();
+  } else {
+    console.log("Minteando con wallet tradicional");
+    prepareCoin();
   }
 });
 

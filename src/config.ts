@@ -1,63 +1,3 @@
-// import { createWalletClient, createPublicClient, custom, http } from "viem";
-// import { base } from "viem/chains";
-
-// export const publicClient = createPublicClient({
-//   chain: base,
-//   transport: http(),
-// });
-// // función para obtener el walletClient con cuenta conectada
-// export async function getWalletClient() {
-//   if (!window.ethereum) {
-//     throw new Error("No se detectó una wallet como MetaMask");
-//   }
-
-// if (typeof window.ethereum === "undefined") {
-//   feedback.textContent = "Wallet no detectada";
-//   return false;
-// }
-
-// const [address] = await window.ethereum.request({
-//   method: "eth_requestAccounts",
-// });
-
-//   return createWalletClient({
-//     chain: base,
-//     transport: custom(window.ethereum),
-//     account: accounts[0] as `0x${string}`,
-//   });
-// }
-
-/////////////////////////////////
-// import { createWalletClient, createPublicClient, custom, http } from "viem";
-// import { base } from "viem/chains";
-
-// export const publicClient = createPublicClient({
-//   chain: base,
-//   transport: http(),
-// });
-
-// // función para obtener el walletClient con cuenta conectada
-// export async function getWalletClient() {
-//   if (!window.ethereum) {
-//     throw new Error("No se detectó una wallet como MetaMask");
-//   }
-
-//   const accounts = await window.ethereum.request({
-//     method: "eth_requestAccounts",
-//   });
-
-//   return createWalletClient({
-//     chain: base,
-//     transport: custom(window.ethereum),
-//     account: accounts[0] as `0x${string}`,
-//   });
-// }
-
-// export const walletClient = createWalletClient({
-//   chain: base,
-//   transport: custom((window as any).ethereum),
-// });
-
 import { createWalletClient, createPublicClient, custom, http } from "viem";
 import { base } from "viem/chains";
 
@@ -67,7 +7,6 @@ export const publicClient = createPublicClient({
   chain: base,
   transport: http(),
 });
-
 export async function getWalletClient() {
   try {
     if (!window.ethereum) {
@@ -93,12 +32,51 @@ export async function getWalletClient() {
     throw error; 
   }
 }
-
+export function isWalletAvailable() {
+  return !!window.ethereum;
+}
+export async function isWalletConnected() {
+  if (!window.ethereum) return false;
+  const accounts = await window.ethereum.request({ method: 'eth_accounts' });
+  return accounts.length > 0;
+}
+interface FarcasterSession {
+  isConnected: boolean;
+  address?: string;
+  fid?: number;
+}
+let farcasterSession: FarcasterSession = { isConnected: false };
+export async function initializeFarcaster() {
+  try {
+    // @ts-ignore - Temporal hasta que instalemos el SDK
+    const { isConnected, address, fid } = await window.farcaster?.connect() || {};
+    
+    if (isConnected) {
+      farcasterSession = { isConnected: true, address, fid };
+      feedback.textContent = "Modo Farcaster activado";
+      return true;
+    }
+    return false;
+  } catch (error) {
+    console.log("Farcaster no disponible:", error);
+    return false;
+  }
+}
 export async function connectWallet() {
+  if (await initializeFarcaster()) {
+    return {
+      type: 'farcaster',
+      address: farcasterSession.address!
+    };
+  }
+
   try {
     const walletClient = await getWalletClient();
     feedback.textContent = "Wallet conectada correctamente";
-    return walletClient;
+    return {
+      type: 'ethereum',
+      client: walletClient
+    };
   } catch (error) {
     feedback.textContent = "No se pudo conectar la wallet";
     console.error("Error en connectWallet:", error);
@@ -106,12 +84,6 @@ export async function connectWallet() {
   }
 }
 
-export function isWalletAvailable() {
-  return !!window.ethereum;
-}
-
-export async function isWalletConnected() {
-  if (!window.ethereum) return false;
-  const accounts = await window.ethereum.request({ method: 'eth_accounts' });
-  return accounts.length > 0;
+export function isFarcasterConnected() {
+  return farcasterSession.isConnected;
 }
