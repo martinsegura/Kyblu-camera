@@ -8,6 +8,7 @@ setApiKey("zora_api_17391ddb71ba589feb1361f82de0ab0109c38588357d25ae8c9eae44b4a1
 const feedback = document.getElementById("feedback")!;
 
 export async function mintCoin(title: string, file: File): Promise<boolean> {
+  
   feedback.textContent = "Preparing transaction";
   // const [address] = await walletClient.requestAddresses();
   const address = (await getWalletClient()).account.address;
@@ -33,7 +34,16 @@ export async function mintCoin(title: string, file: File): Promise<boolean> {
     
     feedback.textContent = "Waiting confirmation";
     const walletClient = await getWalletClient();
-    const result = await createCoin(coinParams, walletClient, publicClient);
+    const result = await createCoin(
+  {
+    ...coinParams,
+  },
+  {
+    ...walletClient,
+    account: walletClient.account,
+  },
+  publicClient
+);
     if(result.hash){
       feedback.textContent = "Creating";
     }

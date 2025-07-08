@@ -5,7 +5,6 @@ export const publicClient = createPublicClient({
   chain: base,
   transport: http(),
 });
-
 // función para obtener el walletClient con cuenta conectada
 export async function getWalletClient() {
   if (!window.ethereum) {
@@ -23,7 +22,3 @@ export async function getWalletClient() {
   });
 }
 
-export const walletClient = createWalletClient({
-  chain: base,
-  transport: custom((window as any).ethereum),
-});
