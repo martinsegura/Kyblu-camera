@@ -1,13 +1,11 @@
 import {mintCoin} from "./mint";
+import { connectWallet, isWalletConnected } from './config';
 import { sdk } from '@farcaster/miniapp-sdk';
 
 document.addEventListener('DOMContentLoaded', async () => {
   try {
-    // Espera a que el SDK esté listo
     await sdk.actions.ready(); 
-    console.log("SDK listo 🚀");
 
-    // Tu lógica aquí (ej: mostrar botones, iniciar flujos)
   } catch (error) {
     console.error("Error al inicializar SDK:", error);
   }
@@ -50,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
   pauseButton.addEventListener('click', pauseVideo);
 
-  saveButton.addEventListener('click', prepareCoin);
+  // saveButton.addEventListener('click', prepareCoin);
   discardButton.addEventListener('click', playVideo);
 
 
@@ -218,7 +216,26 @@ const playVideo = () => {
   toggleButton("play");
 }
 
+saveButton.addEventListener('click', async () => {
+  if (await isWalletConnected()) {
+    prepareCoin();
+  } else {
+    const walletClient = await connectWallet();
+    if (walletClient) {
+      await prepareCoin(); // Ejecuta mint después de conectar
+    } else {
+      overlay.classList.remove("hidden");
+      feedback.innerHTML = "Wallet not sync";
+      feedback.classList.remove("hide-element");
+      setTimeout(() => {
+        resetUIFail()
+      }, 2000);
+    }
+  }
+});
+
 async function prepareCoin(){
+
   const buttons = document.querySelectorAll(".palette-button");
   const overlay = document.getElementById("overlay");
 
