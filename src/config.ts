@@ -7,6 +7,7 @@ export const publicClient = createPublicClient({
   chain: base,
   transport: http(),
 });
+
 export async function getWalletClient() {
   try {
     if (!window.ethereum) {
@@ -32,51 +33,12 @@ export async function getWalletClient() {
     throw error; 
   }
 }
-export function isWalletAvailable() {
-  return !!window.ethereum;
-}
-export async function isWalletConnected() {
-  if (!window.ethereum) return false;
-  const accounts = await window.ethereum.request({ method: 'eth_accounts' });
-  return accounts.length > 0;
-}
-interface FarcasterSession {
-  isConnected: boolean;
-  address?: string;
-  fid?: number;
-}
-let farcasterSession: FarcasterSession = { isConnected: false };
-export async function initializeFarcaster() {
-  try {
-    // @ts-ignore - Temporal hasta que instalemos el SDK
-    const { isConnected, address, fid } = await window.farcaster?.connect() || {};
-    
-    if (isConnected) {
-      farcasterSession = { isConnected: true, address, fid };
-      feedback.textContent = "Modo Farcaster activado";
-      return true;
-    }
-    return false;
-  } catch (error) {
-    console.log("Farcaster no disponible:", error);
-    return false;
-  }
-}
-export async function connectWallet() {
-  if (await initializeFarcaster()) {
-    return {
-      type: 'farcaster',
-      address: farcasterSession.address!
-    };
-  }
 
+export async function connectWallet() {
   try {
     const walletClient = await getWalletClient();
     feedback.textContent = "Wallet conectada correctamente";
-    return {
-      type: 'ethereum',
-      client: walletClient
-    };
+    return walletClient;
   } catch (error) {
     feedback.textContent = "No se pudo conectar la wallet";
     console.error("Error en connectWallet:", error);
@@ -84,6 +46,12 @@ export async function connectWallet() {
   }
 }
 
-export function isFarcasterConnected() {
-  return farcasterSession.isConnected;
+export function isWalletAvailable() {
+  return !!window.ethereum;
+}
+
+export async function isWalletConnected() {
+  if (!window.ethereum) return false;
+  const accounts = await window.ethereum.request({ method: 'eth_accounts' });
+  return accounts.length > 0;
 }
