@@ -34,7 +34,6 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequest
   const spinner = document.getElementById("spinner");
 document.addEventListener('DOMContentLoaded', () => {
 
-document.getElementById("start-button").addEventListener("click", getMedia);
     
   pauseButton.addEventListener('click', pauseVideo);
 
@@ -45,7 +44,7 @@ document.getElementById("start-button").addEventListener("click", getMedia);
 });
 
 
-const getMedia = () => {
+const Medigeta = () => {
   const constraints = {
     video: {
       facingMode: { ideal: "user" }
