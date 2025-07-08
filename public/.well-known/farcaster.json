@@ -6,11 +6,11 @@
   },
   "frame": {
     "version": "1",
-    "name": "Example Frame",
+    "name": "Kyblu Camera",
     "iconUrl": "https://kyblu-camera.vercel.app/icon.png",
     "homeUrl": "https://kyblu-camera.vercel.app/",
     "imageUrl": "https://kyblu-camera.vercel.app/image.png",
-    "buttonTitle": "Check this out",
+    "buttonTitle": "Take a pixel shot",
     "splashImageUrl": "https://kyblu-camera.vercel.app/splash.png",
     "splashBackgroundColor": "#eeccff",
     "webhookUrl": "https://kyblu-camera.vercel.app/api/webhook"
