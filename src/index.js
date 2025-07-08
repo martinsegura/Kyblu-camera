@@ -217,22 +217,6 @@ const playVideo = () => {
 }
 
 saveButton.addEventListener('click', async () => {
-//   if (await isWalletConnected()) {
-//     prepareCoin();
-//   } else {
-//     const walletClient = await connectWallet();
-//     if (walletClient) {
-//       await prepareCoin(); 
-//     } else {
-//       overlay.classList.remove("hidden");
-//       feedback.innerHTML = "Wallet not sync";
-//       feedback.classList.remove("hide-element");
-//       setTimeout(() => {
-//         resetUIFail()
-//       }, 2000);
-//     }
-//   }
-// });
 const connection = await connectWallet();
   
   if (!connection) {
