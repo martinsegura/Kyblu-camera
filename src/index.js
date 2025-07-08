@@ -246,10 +246,8 @@ const connection = await connectWallet();
   }
 
   if (connection.type === 'farcaster') {
-    console.log("Minteando con Farcaster:", connection.address);
     prepareCoin();
   } else {
-    console.log("Minteando con wallet tradicional");
     prepareCoin();
   }
 });
@@ -286,8 +284,6 @@ async function prepareCoin(){
 }
 
 async function savePhoto() {
-  console.log("Inicio el guardado");
-
   const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
   const pixelPerfectPicture = nearestNeighbourInterpolation(imageData);
   const clampedArray = new Uint8ClampedArray(pixelPerfectPicture);
@@ -427,6 +423,28 @@ const palettes = {
     [108, 86, 171],
     [184, 131, 185],
     [191, 220, 225]
+    ],
+    r: 2,
+    g: 2,
+    b: 2,
+  },
+    "Gayapon": {
+    colors: [
+    [92, 0, 126],
+    [254, 110, 205],
+    [72, 206, 223],
+    [229, 230, 149]
+    ],
+    r: 1,
+    g: 2,
+    b: 2,
+  },
+      "Demichrome": {
+    colors: [
+    [33,	30,	32	],
+    [85,	85,	104	],
+    [160,	160,	139],
+    [233,	239,	236	]
     ],
     r: 2,
     g: 2,
