@@ -6,10 +6,10 @@
   },
   "frame": {
     "version": "1",
-    "name": "Kyblu Camera",
-    "iconUrl": "https://kyblu-camera.vercel.app/icon.png",
+    "name": "Kyblu Cam",
+    "iconUrl": "https://cdn.discordapp.com/attachments/1229482725090791563/1392264178735120536/Kyblucam-icon.png?ex=686ee68f&is=686d950f&hm=834be9414b7c311f03c0abace2c7f3857a8ebd2f2d182c24c489e658839332d8&",
     "homeUrl": "https://kyblu-camera.vercel.app/",
-    "imageUrl": "https://kyblu-camera.vercel.app/image.png",
+    "imageUrl": "https://cdn.discordapp.com/attachments/1229482725090791563/1392264178735120536/Kyblucam-icon.png?ex=686ee68f&is=686d950f&hm=834be9414b7c311f03c0abace2c7f3857a8ebd2f2d182c24c489e658839332d8&",
     "buttonTitle": "Take a pixel shot",
     "splashImageUrl": "https://kyblu-camera.vercel.app/splash.png",
     "splashBackgroundColor": "#eeccff",
