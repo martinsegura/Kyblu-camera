@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-const Medigeta = () => {
+const getMedia = () => {
   const constraints = {
     video: {
       facingMode: { ideal: "user" }
