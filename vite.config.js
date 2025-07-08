@@ -5,9 +5,7 @@ export default defineConfig({
   plugins: [topLevelAwait()],
   build: {
     target: 'esnext',
-    rollupOptions: {
-      external: ['@farcaster/miniapp-sdk'],
-    }
+    rollupOptions: {}, 
   },
   esbuild: {
     supported: {
@@ -22,3 +20,4 @@ export default defineConfig({
     }
   }
 });
+
