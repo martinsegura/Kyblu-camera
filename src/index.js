@@ -1,4 +1,4 @@
-import { mintCoin } from "./mint";
+// import { mintCoin } from "./mint";
 
 const canvas = document.getElementById('canvas-id');
 const ctx = canvas.getContext('2d');
@@ -207,33 +207,34 @@ const playVideo = () => {
 }
 
 async function prepareCoin(){
-  const buttons = document.querySelectorAll(".palette-button");
-  const overlay = document.getElementById("overlay");
+  console.log("js andando");
+//   const buttons = document.querySelectorAll(".palette-button");
+//   const overlay = document.getElementById("overlay");
 
 
-  saveButton.disabled = true;
-  discardButton.disabled = true;
-  buttons.forEach(b => b.disabled = true);
+//   saveButton.disabled = true;
+//   discardButton.disabled = true;
+//   buttons.forEach(b => b.disabled = true);
   
-  overlay.classList.remove("hidden");
-  feedback.innerHTML = "Preparing mint";
-  feedback.classList.remove("hide-element");
+//   overlay.classList.remove("hidden");
+//   feedback.innerHTML = "Preparing mint";
+//   feedback.classList.remove("hide-element");
 
   
-  const title = 'Kyblu Shot #'+Math.floor(Math.random() * (55555 - 0 + 1)) + 0;
-  let file = await savePhoto();
-  mintCoin(title, file).then(result => {
-    if (result === true) {
-      setTimeout(() => {
-        resetUI();
-      }, 2000);
+//   const title = 'Kyblu Shot #'+Math.floor(Math.random() * (55555 - 0 + 1)) + 0;
+//   let file = await savePhoto();
+//   mintCoin(title, file).then(result => {
+//     if (result === true) {
+//       setTimeout(() => {
+//         resetUI();
+//       }, 2000);
 
-    } else {
-      setTimeout(() => {
-        resetUIFail()
-      }, 2000);
-    }
-});
+//     } else {
+//       setTimeout(() => {
+//         resetUIFail()
+//       }, 2000);
+//     }
+// });
 }
 
 async function savePhoto() {

@@ -2,6 +2,7 @@ import { createMetadataBuilder,  createZoraUploaderForCreator, DeployCurrency, }
 import { setApiKey } from "@zoralabs/coins-sdk";
 import { createCoin } from "@zoralabs/coins-sdk";
 import { publicClient, walletClient } from "./config";
+
 setApiKey("zora_api_17391ddb71ba589feb1361f82de0ab0109c38588357d25ae8c9eae44b4a1d2ca");
 
 const feedback = document.getElementById("feedback")!;
@@ -9,7 +10,7 @@ const feedback = document.getElementById("feedback")!;
 export async function mintCoin(title: string, file: File): Promise<boolean> {
   feedback.textContent = "Preparing transaction";
   const [address] = await walletClient.requestAddresses();
-  
+  // const wallet = walletClient.account;
 
   const { createMetadataParameters } = await createMetadataBuilder()
     .withName(title)
