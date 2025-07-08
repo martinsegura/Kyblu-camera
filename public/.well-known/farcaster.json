@@ -4,17 +4,15 @@
     "payload": "eyJkb21haW4iOiJreWJsdS1jYW1lcmEudmVyY2VsLmFwcCJ9",
     "signature": "MHhhMDk4NWI3MjcyY2NlOGFmNzI4ODg2YmNjNzQ0YTRjNjVkM2NiMzMzMmMxYzZmOTY1YjE1NzJlOTM4MDAwMTg1N2FhYjFmYjdhODQ2MjE0MzU0MzBmOWE3YTBhY2MwOTQzZTVmMTQ5OGJlMTEyYzkwY2ExM2FjZDlhMTcyZGEyODFi"
   },
-    "frame": {
-        "name": "KybluCam",
-        "version": "1",
-        "iconUrl": "https://kyblu-camera.vercel.app/icon.png",
-        "homeUrl": "https://kyblu-camera.vercel.app",
-        "imageUrl": "https://kyblu-camera.vercel.app/image.png",
-        "splashImageUrl": "https://kyblu-camera.vercel.app/splash.png",
-        "splashBackgroundColor": "#110f13",
-        "webhookUrl": "https://kyblu-camera.vercel.app/api/webhook",
-        "subtitle": "Take a pixel shot and mint it on zora",
-        "primaryCategory": "entertainment",
-        "description": "Kyblu is a pixel art camera where you will be able to capture your moments and mint them directly in Zora."
-    }
+  "frame": {
+    "version": "1",
+    "name": "Example Frame",
+    "iconUrl": "https://kyblu-camera.vercel.app/icon.png",
+    "homeUrl": "https://kyblu-camera.vercel.app/",
+    "imageUrl": "https://kyblu-camera.vercel.app/image.png",
+    "buttonTitle": "Check this out",
+    "splashImageUrl": "https://kyblu-camera.vercel.app/splash.png",
+    "splashBackgroundColor": "#eeccff",
+    "webhookUrl": "https://kyblu-camera.vercel.app/api/webhook"
+  }
 }
