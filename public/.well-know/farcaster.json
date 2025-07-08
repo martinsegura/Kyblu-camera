@@ -1,0 +1,25 @@
+{
+  "accountAssociation": {
+    "header": "eyJmaWQiOjM0Njg3MCwidHlwZSI6ImN1c3RvZHkiLCJrZXkiOiIweDI0N2ZCRTU1NDlhMzJkOERGNzNEOTZmMzJhMWQ2MENCMWUyMTkwRTEifQ",
+    "payload": "eyJkb21haW4iOiJreWJsdS1jYW1lcmEudmVyY2VsLmFwcCJ9",
+    "signature": "MHhhMDk4NWI3MjcyY2NlOGFmNzI4ODg2YmNjNzQ0YTRjNjVkM2NiMzMzMmMxYzZmOTY1YjE1NzJlOTM4MDAwMTg1N2FhYjFmYjdhODQ2MjE0MzU0MzBmOWE3YTBhY2MwOTQzZTVmMTQ5OGJlMTEyYzkwY2ExM2FjZDlhMTcyZGEyODFi"
+  },
+  "frame": {
+    "version": "1",
+    "name": "KybluCam",
+    "iconUrl": "https://kyblu-camera.vercel.app/icon.png",
+    "homeUrl": "https://kyblu-camera.vercel.app/",
+    "imageUrl": "https://kyblu-camera.vercel.app/image.png",
+    "buttonTitle": "Check this out",
+    "splashImageUrl": "https://kyblu-camera.vercel.app/splash.png",
+    "splashBackgroundColor": "#eeccff",
+    "webhookUrl": "https://kyblu-camera.vercel.app/api/webhook",
+    "subtitle": "Cámara inteligente",
+    "description": "Controla tu cámara desde Farcaster.",
+    "primaryCategory": "utility",
+    "tags": ["camera","home","security"],
+    "tagline": "Tu cámara, un click",
+    "ogTitle": "KybluCam",
+    "ogDescription": "Control en tu mano"
+    }
+}
