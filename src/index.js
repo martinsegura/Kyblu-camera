@@ -1,4 +1,7 @@
 import {mintCoin} from "./mint";
+import { sdk } from '@farcaster/miniapp-sdk';
+
+await sdk.actions.ready();
 
 const canvas = document.getElementById('canvas-id');
 const ctx = canvas.getContext('2d');
