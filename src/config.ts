@@ -42,17 +42,13 @@ export async function getWalletClient() {
     throw new Error("No se detectó una wallet como MetaMask");
   }
 
-  if (typeof window.ethereum === "undefined") {
-  return false;
-}
-
-const [address] = await window.ethereum.request({
-  method: "eth_requestAccounts",
-});
+  const accounts = await window.ethereum.request({
+    method: "eth_requestAccounts",
+  });
 
   return createWalletClient({
     chain: base,
-    transport: custom((window as any).ethereum),
+    transport: custom(window.ethereum),
     account: accounts[0] as `0x${string}`,
   });
 }
