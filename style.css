@@ -1,8 +1,7 @@
 html, body {
   margin: 0px;
   padding: 0px;
-  /* background: #110f13; */
-  background-color: white;
+  background: #110f13;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
