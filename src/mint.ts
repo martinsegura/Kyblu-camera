@@ -11,7 +11,12 @@ export async function mintCoin(title: string, file: File): Promise<boolean> {
   
   feedback.textContent = "Preparing transaction";
   // const [address] = await walletClient.requestAddresses();
-  const address = (await getWalletClient()).account.address;
+  try{
+    const address = (await getWalletClient()).account.address;
+  }catch(error){
+    return false;
+  }
+
   console.log(address);
 
   const { createMetadataParameters } = await createMetadataBuilder()
