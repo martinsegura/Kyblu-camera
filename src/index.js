@@ -1,4 +1,4 @@
-import { mintCoin } from "./mint";
+import {mintCoin} from "./mint";
 
 const canvas = document.getElementById('canvas-id');
 const ctx = canvas.getContext('2d');
