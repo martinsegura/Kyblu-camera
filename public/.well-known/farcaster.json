@@ -11,8 +11,8 @@
     "homeUrl": "https://kyblu-camera.vercel.app/",
     "imageUrl": "https://cdn.discordapp.com/attachments/1229482725090791563/1392264178735120536/Kyblucam-icon.png?ex=686ee68f&is=686d950f&hm=834be9414b7c311f03c0abace2c7f3857a8ebd2f2d182c24c489e658839332d8&",
     "buttonTitle": "Take a pixel shot",
-    "splashImageUrl": "https://kyblu-camera.vercel.app/splash.png",
-    "splashBackgroundColor": "#eeccff",
+    "splashImageUrl": "https://cdn.discordapp.com/attachments/1229482725090791563/1392264178735120536/Kyblucam-icon.png?ex=686ee68f&is=686d950f&hm=834be9414b7c311f03c0abace2c7f3857a8ebd2f2d182c24c489e658839332d8&",
+    "splashBackgroundColor": "#f977ff",
     "webhookUrl": "https://kyblu-camera.vercel.app/api/webhook"
   }
 }
