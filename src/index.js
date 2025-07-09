@@ -217,22 +217,8 @@ const playVideo = () => {
 }
 
 saveButton.addEventListener('click', async () => {
-//   if (await isWalletConnected()) {
-//     prepareCoin();
-//   } else {
-//     const walletClient = await connectWallet();
-//     if (walletClient) {
-//       await prepareCoin(); 
-//     } else {
-//       overlay.classList.remove("hidden");
-//       feedback.innerHTML = "Wallet not sync";
-//       feedback.classList.remove("hide-element");
-//       setTimeout(() => {
-//         resetUIFail()
-//       }, 2000);
-//     }
-//   }
-// });
+
+
 const connection = await connectWallet();
   
   if (!connection) {
@@ -466,6 +452,8 @@ renderPalettesWithIDs(palettes, (selectedPalette, id) => {
 
 function resetUI() {
   playVideo();
+  saveButton.disabled = false;
+  discardButton.disabled = false;
   aspectButton.classList.remove("hide-element");
   pauseButton.classList.remove("hide-element");
   switchButton.classList.remove("hide-element");
@@ -524,8 +512,8 @@ function updateCanvasMode() {
     canvas.height = 320;
 
     aspectButton.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-maximize2-icon lucide-maximize-2"><path d="M15 3h6v6"/><path d="m21 3-7 7"/><path d="m3 21 7-7"/><path d="M9 21H3v-6"/></svg>';
-    canvas.classList.add("display");
-    canvas.classList.remove("position");
+    // canvas.classList.add("display");
+    // canvas.classList.remove("position");
     canvas.style.width = "100vw";
     canvas.style.height = "100vw";
   } else if (mode === "portrait") {
@@ -536,11 +524,10 @@ function updateCanvasMode() {
 
     aspectButton.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-maximize-icon lucide-maximize"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M21 8V5a2 2 0 0 0-2-2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg>';
 
-    canvas.classList.remove("display");
-    canvas.classList.add("position");
+    // canvas.classList.remove("display");
+    // canvas.classList.add("position");
     canvas.style.height = "100vh";
-    // canvas.style.width = `${(9 / 16) * 100}vh`;
-    canvas.style.width = "100vw";
+    canvas.style.width = `${(9 / 16) * 100}vh`;
   }
 }
 
@@ -578,3 +565,46 @@ switchButton.addEventListener("click", () => {
 });
 
 startCamera(currentFacingMode);
+
+// function adjustCanvas() {
+//   const canvas = document.getElementById('canvas-id');
+//   const wrapper = document.querySelector('.canvas-wrapper');
+//   const isWidescreen = /* tu lógica para 9:16 */ false;
+  
+//   // Configura relación de aspecto
+//   const targetRatio = isWidescreen ? 9/16 : 1;
+  
+//   // Calcula dimensiones
+//   const wrapperWidth = wrapper.clientWidth;
+//   const wrapperHeight = wrapper.clientHeight;
+  
+//   if (wrapperWidth / wrapperHeight > targetRatio) {
+//     // Contenedor más ancho que el canvas
+//     canvas.style.height = '100%';
+//     canvas.style.width = 'auto';
+//   } else {
+//     // Contenedor más alto que el canvas
+//     canvas.style.width = '100%';
+//     canvas.style.height = 'auto';
+//   }
+// }
+
+// // Configura event listeners
+// window.addEventListener('load', adjustCanvas);
+// window.addEventListener('resize', adjustCanvas);
+
+
+// let isWidescreen = false;
+
+// function toggleAspectRatio() {
+//   isWidescreen = !isWidescreen;
+//   const canvas = document.getElementById('canvas-id');
+  
+//   // Opción 1: Cambiar clase CSS
+//   canvas.classList.toggle('widescreen', isWidescreen);
+  
+//   // Opción 2: Cambiar estilo directamente
+//   canvas.style.aspectRatio = isWidescreen ? '9/16' : '1/1';
+  
+//   adjustCanvas();
+// }

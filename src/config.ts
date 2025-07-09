@@ -2,6 +2,14 @@ import { createWalletClient, createPublicClient, custom, http } from "viem";
 import { base } from "viem/chains";
 import { sdk } from "@farcaster/miniapp-sdk";
 
+declare global {
+  interface Window {
+    farcaster?: {
+      wallet?: any;
+    };
+  }
+}
+
 const feedback = document.getElementById("feedback")!;
 
 export const publicClient = createPublicClient({
@@ -9,48 +17,54 @@ export const publicClient = createPublicClient({
   transport: http(),
 });
 
-export async function getWalletClient() {
-   let provider;
+function isInFarcasterMiniApp(): boolean {
   try {
-    provider = await sdk.wallet.getEthereumProvider();
+    return (
+      typeof window !== 'undefined' &&
+      !!window.farcaster &&
+      !!sdk?.wallet?.getEthereumProvider
+    );
   } catch {
-    throw new Error("No se detectó wallet de Farcaster. ¿Estás dentro de una Mini App?");
+    return false;
+  }
+}
+
+export async function getWalletClient() {
+  if (isInFarcasterMiniApp()) {
+    try {
+      const provider = await sdk.wallet.getEthereumProvider();
+      const accounts = await provider!.request({ 
+        method: "eth_requestAccounts" 
+      });
+
+      if (!accounts || accounts.length === 0) {
+        throw new Error("No hay cuentas disponibles de Farcaster");
+      }
+
+      return createWalletClient({
+        chain: base,
+        transport: custom(provider!),
+        account: accounts[0] as `0x${string}`,
+      });
+    } catch (error) {
+      console.error("Error con Farcaster:", error);
+    }
   }
 
-  const accounts = await provider.request({ method: "eth_requestAccounts" });
-  if (!accounts || accounts.length === 0) {
-    throw new Error("No hay cuentas disponibles de Farcaster");
+  if (!window.ethereum) {
+    throw new Error("No se detectó ninguna wallet (MetaMask/Farcaster)");
   }
+
+  const accounts = await window.ethereum.request({
+    method: "eth_requestAccounts",
+  });
 
   return createWalletClient({
     chain: base,
-    transport: custom(provider),
+    transport: custom(window.ethereum),
     account: accounts[0] as `0x${string}`,
   });
-  // try {
-  //   if (!window.ethereum) {
-  //     throw new Error("No se detectó una wallet como MetaMask");
-  //   }
-
-  //   const accounts = await window.ethereum.request({
-  //     method: "eth_requestAccounts",
-  //   });
-
-  //   if (!accounts || accounts.length === 0) {
-    //     throw new Error("El usuario no concedió acceso a la wallet");
-    //   }
-    
-    //   return createWalletClient({    
-      //     chain: base,
-      //     transport: custom(window.ethereum),
-      //     account: accounts[0] as `0x${string}`,
-      //   });
-      // } catch (error) {
-        //   feedback.textContent = error instanceof Error ? error.message : "Error desconocido al conectar wallet";
-        //   console.error("Error en getWalletClient:", error);
-        //   throw error; 
-        // }
-  } 
+}
 
 export async function connectWallet() {
   try {
@@ -58,18 +72,31 @@ export async function connectWallet() {
     feedback.textContent = "Wallet conectada correctamente";
     return walletClient;
   } catch (error) {
-    feedback.textContent = "No se pudo conectar la wallet";
+    feedback.textContent = error instanceof Error ? error.message : "Error desconocido";
     console.error("Error en connectWallet:", error);
-    return null; 
+    return null;
   }
 }
 
 export function isWalletAvailable() {
-  return !!window.ethereum;
+  return isInFarcasterMiniApp() || !!window.ethereum;
 }
 
 export async function isWalletConnected() {
-  if (!window.ethereum) return false;
-  const accounts = await window.ethereum.request({ method: 'eth_accounts' });
-  return accounts.length > 0;
+  if (isInFarcasterMiniApp()) {
+    try {
+      const provider = await sdk.wallet.getEthereumProvider();
+      const accounts = await provider!.request({ method: 'eth_accounts' });
+      return accounts.length > 0;
+    } catch {
+      return false;
+    }
+  }
+
+  if (window.ethereum) {
+    const accounts = await window.ethereum.request({ method: 'eth_accounts' });
+    return accounts.length > 0;
+  }
+
+  return false;
 }
