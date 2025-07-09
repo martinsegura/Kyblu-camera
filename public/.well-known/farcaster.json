@@ -8,11 +8,40 @@
     "version": "1",
     "name": "Kyblu Cam",
     "iconUrl": "https://kyblu-camera.vercel.app/Kyblucam-icon.png",
-    "homeUrl": "https://kyblu-camera.vercel.app/",
-    "imageUrl": "https://kyblu-camera.vercel.app/Kyblucam-icon.png",
     "buttonTitle": "Take a pixel shot",
     "splashImageUrl": "https://kyblu-camera.vercel.app/Kyblucam-icon.png",
     "splashBackgroundColor": "#f977ff",
+    "homeUrl": "https://kyblu-camera.vercel.app/",
+    "imageUrl": "https://kyblu-camera.vercel.app/Kyblucam-icon.png",
     "webhookUrl": "https://kyblu-camera.vercel.app/api/webhook"
+  },
+  "miniApp": {
+    "name": "Kyblu Cam",
+    "description": "Take a pixel shot and coin it in Zora",
+    "iconUrl": "https://kyblu-camera.vercel.app/Kyblucam-icon.png",
+    "primaryCategory": "entertainment",
+    "tags": [
+      "pixelart",
+      "camera",
+      "zora",
+      "retro",
+      "filter",
+      "8-bit"
+    ],
+    "url": "https://kyblu-camera.vercel.app/",
+    "buttonTitle": "Take a pixel shot",
+    "splashImageUrl": "https://kyblu-camera.vercel.app/Kyblucam-icon.png",
+    "splashBackgroundColor": "#eaaded",
+    "subtitle": "Take a pixel shot",
+    "screenshotUrls": [
+      "https://kyblu-camera.vercel.app/Screenshot.png"
+    ],
+    "heroImageUrl": "https://kyblu-camera.vercel.app/Kyblucam-icon.png",
+    "tagline": "Take a pixel shot",
+    "ogTitle": "Take a pixel shot",
+    "ogDescription": "Capture photos in pixel art by exploring different palettes and formats, and then mint your memories forever in Zora",
+    "ogImageUrl": "https://kyblu-camera.vercel.app/Kyblucam-icon.png",
+    "castShareUrl": "https://kyblu-camera.vercel.app"
   }
 }
+  
