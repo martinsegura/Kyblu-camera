@@ -1,10 +1,10 @@
-import { mintCoin } from "./mint";
+import {mintCoin} from "./mint";
 import { connectWallet, isWalletConnected } from './config';
 import { sdk } from '@farcaster/miniapp-sdk';
 
 document.addEventListener('DOMContentLoaded', async () => {
   try {
-    await sdk.actions.ready();
+    await sdk.actions.ready(); 
 
   } catch (error) {
     console.error("Error al inicializar SDK:", error);
@@ -14,17 +14,17 @@ document.addEventListener('DOMContentLoaded', async () => {
 const canvas = document.getElementById('canvas-id');
 const ctx = canvas.getContext('2d');
 const video = document.querySelector('video');
-var constraints = { video: { facingMode: "user" }, audio: false };
+var constraints = {video: { facingMode: "user" }, audio: false};
 let width = 180;
 let height = 320;
 const upscale = 3;
 canvas.width = width;
 canvas.height = height;
-let palette = [
-  [33, 30, 32],
-  [85, 85, 104],
-  [160, 160, 139],
-  [233, 239, 236]
+let palette = [ 
+    [33,	30,	32	],
+    [85,	85,	104	],
+    [160,	160,	139],
+    [233,	239,	236	]
 ];
 
 let r = 2;
@@ -33,19 +33,19 @@ let b = 2;
 
 
 window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
-  window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
-const switchButton = document.getElementById("switch-button");
+                               window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+  const switchButton = document.getElementById("switch-button");
 
-
-const aspectButton = document.getElementById("aspect-button");
-const saveButton = document.getElementById("save-button");
-const discardButton = document.getElementById("discard-button");
-const pauseButton = document.getElementById("pause-button");
-const feedback = document.getElementById("feedback");
-const spinner = document.getElementById("spinner");
+  
+  const aspectButton = document.getElementById("aspect-button");
+  const saveButton = document.getElementById("save-button");
+  const discardButton = document.getElementById("discard-button");
+  const pauseButton = document.getElementById("pause-button");
+  const feedback = document.getElementById("feedback");
+  const spinner = document.getElementById("spinner");
 document.addEventListener('DOMContentLoaded', () => {
 
-
+    
   pauseButton.addEventListener('click', pauseVideo);
 
   // saveButton.addEventListener('click', prepareCoin);
@@ -85,7 +85,7 @@ video.addEventListener('play', () => {
       let xOffset = canvas.width / 2 - drawingWidth / 2;
       let yOffset = canvas.height / 2 - drawingHeight / 2;
       ctx.drawImage(video, xOffset, yOffset, drawingWidth, drawingHeight);
-      colourOrderedDithering(palette, ctx, width, height);
+      colourOrderedDithering( palette , ctx, width, height);
     }, 0);
   }
   requestAnimationFrame(step);
@@ -107,37 +107,37 @@ const scaleImage = (image) => {
 const colourOrderedDithering = (colourPalette) => {
   const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
   const data = imageData.data;
+  
 
-
-  var thresholdPaletteEightByEight = [
-    [0, 32, 8, 40, 2, 34, 10, 42],
-    [48, 16, 56, 24, 50, 18, 58, 26],
-    [12, 44, 4, 36, 14, 46, 6, 38],
-    [60, 28, 52, 20, 62, 30, 54, 22],
-    [3, 35, 11, 43, 1, 33, 9, 41],
+  var thresholdPaletteEightByEight = [ 
+    [ 0, 32,  8, 40,  2, 34, 10, 42],   
+    [48, 16, 56, 24, 50, 18, 58, 26],  
+    [12, 44,  4, 36, 14, 46,  6, 38],   
+    [60, 28, 52, 20, 62, 30, 54, 22],   
+    [ 3, 35, 11, 43,  1, 33,  9, 41],   
     [51, 19, 59, 27, 49, 17, 57, 25],
-    [15, 47, 7, 39, 13, 45, 5, 37],
-    [63, 31, 55, 23, 61, 29, 53, 21]];
+    [15, 47,  7, 39, 13, 45,  5, 37],
+    [63, 31, 55, 23, 61, 29, 53, 21] ];
 
   const distanceColours = (colour, colourToMatch) => {
     return Math.sqrt(Math.pow((colour[0] - colourToMatch[0]), r) + Math.pow((colour[1] - colourToMatch[1]), g) + Math.pow((colour[2] - colourToMatch[2]), b));
   }
 
-  for (let i = 0; i < data.length; i += 4) {
-
+  for( let i = 0; i < data.length; i += 4) {
+ 
     let x = ((i / 4) % canvas.width) % thresholdPaletteEightByEight.length;
     let y = (Math.floor((i / 4) / canvas.width)) % thresholdPaletteEightByEight.length;
 
-    let preCalculatedThreshold = (thresholdPaletteEightByEight[y][x] * 1 / 64) - 0.8
-    let redPixel = data[i] + (255 / colourPalette.length) * preCalculatedThreshold;
-    let bluePixel = data[i + 1] + (255 / colourPalette.length) * preCalculatedThreshold;
-    let greenPixel = data[i + 2] + (255 / colourPalette.length) * preCalculatedThreshold;
-    let fullPixel = [redPixel, bluePixel, greenPixel];
+    let preCalculatedThreshold = (thresholdPaletteEightByEight[y][x] * 1/64) - 0.8
+    let redPixel   = data[i]     + (255/colourPalette.length) * preCalculatedThreshold;
+    let bluePixel  = data[i + 1] + (255/colourPalette.length) * preCalculatedThreshold;
+    let greenPixel = data[i + 2] + (255/colourPalette.length) * preCalculatedThreshold;
+    let fullPixel  = [redPixel, bluePixel, greenPixel];
 
     let shortestMatch = Number.MAX_VALUE;
     let paletteIndex = 0;
 
-    for (let j = 0; j < colourPalette.length; j++) {
+    for( let j = 0; j < colourPalette.length; j++) {
       let closestMatch = distanceColours(fullPixel, colourPalette[j]);
       if (closestMatch < shortestMatch) {
         shortestMatch = closestMatch;
@@ -145,7 +145,7 @@ const colourOrderedDithering = (colourPalette) => {
       }
     }
 
-    data[i] = colourPalette[paletteIndex][0];
+    data[i]     = colourPalette[paletteIndex][0];
     data[i + 1] = colourPalette[paletteIndex][1];
     data[i + 2] = colourPalette[paletteIndex][2];
 
@@ -157,11 +157,11 @@ const decomposeImage = (image, width) => {
   const newImageArray = new Array;
   const groupPixelsArray = new Array;
   const imageValues = image.length;
-  for (let i = 0; i < imageValues; i += 4) {
+  for( let i = 0; i < imageValues; i += 4) {
     const pixel = Array.from(image.slice(i, i + 4));
     groupPixelsArray.push(pixel);
   }
-  for (let i = 0; i < groupPixelsArray.length; i += width) {
+  for( let i = 0; i < groupPixelsArray.length; i += width) {
     newImageArray.push(groupPixelsArray.slice(i, ((i + 1) * width)));
   }
   return newImageArray;
@@ -171,33 +171,33 @@ const nearestNeighbourInterpolation = (image) => {
   const matrix = decomposeImage(image.data, image.width);
   let newSizeHeightMatrix = matrix.length * upscale;
   let newSizeWidthMatrix = matrix[0].length * upscale;
-  let ratioHeightMatrix = matrix.length / newSizeHeightMatrix;
-  let ratioWidthMatrix = matrix[0].length / newSizeWidthMatrix;
+  let ratioHeightMatrix = matrix.length/newSizeHeightMatrix;
+  let ratioWidthMatrix = matrix[0].length/newSizeWidthMatrix;
   let rowPositions = new Array;
   let columnPositions = new Array;
-  for (let i = 1; i < newSizeWidthMatrix + 1; i++) {
+  for(  let i = 1; i < newSizeWidthMatrix + 1; i++) {
     columnPositions.push(i);
   }
-  for (let i = 1; i < newSizeHeightMatrix + 1; i++) {
+  for(  let i = 1; i < newSizeHeightMatrix + 1; i++) {
     rowPositions.push(i);
   }
-  rowPositions = rowPositions.map(e => Math.ceil(e * ratioHeightMatrix));
+  rowPositions    = rowPositions.map(e => Math.ceil(e * ratioHeightMatrix));
   columnPositions = columnPositions.map(e => Math.ceil(e * ratioWidthMatrix));
   const rows = new Array;
-  for (let j = 0; j < matrix.length; j++) {
+  for(  let j = 0; j < matrix.length; j++) {
     const newArray = new Array;
-    for (let k = 0; k < columnPositions.length; k += upscale) {
-      if (((k / upscale) + 1) === columnPositions[k]) {
-        for (let l = 0; l < upscale; l++) {
-          newArray.push(matrix[j][(k / upscale)]);
+    for( let k = 0; k < columnPositions.length; k += upscale) {
+      if (((k/upscale) + 1) === columnPositions[k]) {
+        for( let l = 0; l < upscale; l++) {
+          newArray.push(matrix[j][(k/upscale)]);
         }
       }
     }
     rows.push(newArray);
   }
   const finalArray = new Array;
-  for (let m = 0; m < rows.length; m++) {
-    for (let l = 0; l < upscale; l++) {
+  for( let m = 0; m < rows.length; m++) {
+    for( let l = 0; l < upscale; l++) {
       finalArray.push(rows[m]);
     }
   }
@@ -206,7 +206,7 @@ const nearestNeighbourInterpolation = (image) => {
 }
 
 const pauseVideo = () => {
-
+  
   video.pause();
   toggleButton("pause");
 }
@@ -217,15 +217,31 @@ const playVideo = () => {
 }
 
 saveButton.addEventListener('click', async () => {
-  const connection = await connectWallet();
-
+//   if (await isWalletConnected()) {
+//     prepareCoin();
+//   } else {
+//     const walletClient = await connectWallet();
+//     if (walletClient) {
+//       await prepareCoin(); 
+//     } else {
+//       overlay.classList.remove("hidden");
+//       feedback.innerHTML = "Wallet not sync";
+//       feedback.classList.remove("hide-element");
+//       setTimeout(() => {
+//         resetUIFail()
+//       }, 2000);
+//     }
+//   }
+// });
+const connection = await connectWallet();
+  
   if (!connection) {
     overlay.classList.remove("hidden");
-    feedback.innerHTML = "Wallet not sync";
-    feedback.classList.remove("hide-element");
-    setTimeout(() => {
-      resetUIFail()
-    }, 2000);
+      feedback.innerHTML = "Wallet not sync";
+      feedback.classList.remove("hide-element");
+      setTimeout(() => {
+        resetUIFail()
+      }, 2000);
     return;
   }
 
@@ -236,7 +252,7 @@ saveButton.addEventListener('click', async () => {
   }
 });
 
-async function prepareCoin() {
+async function prepareCoin(){
 
   const buttons = document.querySelectorAll(".palette-button");
   const overlay = document.getElementById("overlay");
@@ -245,13 +261,13 @@ async function prepareCoin() {
   saveButton.disabled = true;
   discardButton.disabled = true;
   buttons.forEach(b => b.disabled = true);
-
+  
   overlay.classList.remove("hidden");
   feedback.innerHTML = "Preparing mint";
   feedback.classList.remove("hide-element");
 
-
-  const title = 'Kyblu Shot #' + Math.floor(Math.random() * (55555 - 0 + 1)) + 0;
+  
+  const title = 'Kyblu Shot #'+Math.floor(Math.random() * (55555 - 0 + 1)) + 0;
   let file = await savePhoto();
   mintCoin(title, file).then(result => {
     if (result === true) {
@@ -264,7 +280,7 @@ async function prepareCoin() {
         resetUIFail()
       }, 2000);
     }
-  });
+});
 }
 
 async function savePhoto() {
@@ -317,43 +333,43 @@ const toggleButton = (current) => {
   const discardButton = document.getElementById("discard-button");
   const switchButton = document.getElementById("switch-button");
   if (current === "pause") {
-    hideButton(pauseButton);
-    hideButton(switchButton);
-    showButton(saveButton);
-    showButton(discardButton);
+      hideButton(pauseButton);
+      hideButton(switchButton);
+      showButton(saveButton);
+      showButton(discardButton);
   } else {
-    hideButton(saveButton);
-    hideButton(discardButton);
-    showButton(pauseButton);
-    showButton(switchButton);
+      hideButton(saveButton);
+      hideButton(discardButton);
+      showButton(pauseButton);
+      showButton(switchButton);
   }
 }
 
 const palettes = {
-  "Demichrome": {
+    "Demichrome": {
     colors: [
-      [33, 30, 32],
-      [85, 85, 104],
-      [160, 160, 139],
-      [233, 239, 236]
+    [33,	30,	32	],
+    [85,	85,	104	],
+    [160,	160,	139],
+    [233,	239,	236	]
     ],
     r: 2,
     g: 2,
     b: 2,
   },
-  "Gameboy Classic": {
+    "Gameboy Classic": {
     colors: [
-      [178, 194, 125],
-      [115, 154, 86],
-      [66, 102, 90],
-      [53, 61, 70]
+    [178, 194, 125],
+    [115, 154, 86],
+    [66, 102, 90],
+    [53, 61, 70]
     ],
     r: 2,
     g: 2,
     b: 2,
   },
   "Pinkyblu": {
-    colors: [[0, 0, 0],
+    colors: [ [0,0,0],
     [255, 177, 191],
     [191, 159, 255],
     [33, 89, 255],
@@ -374,29 +390,29 @@ const palettes = {
   //   g: 2,
   //   b: 2,
   // },
-  "1bit": {
-    colors: [
+  "1bit":{
+    colors:[
       [0, 0, 0],
       [255, 255, 255],
     ],
-    r: 0,
-    g: 2,
-    b: 2,
+    r:0,
+    g:2,
+    b:2,
   },
   "Dawnbriger": {
-    colors: [[0, 0, 0],
-    [85, 65, 95],
-    [100, 105, 100],
-    [215, 115, 85],
-    [80, 140, 215],
-    [85, 65, 95],
-    [100, 105, 100],
-    [230, 200, 110],
-    [220, 245, 255],
-    ],
-    r: 1,
-    g: 1.2,
-    b: 1,
+  colors: [ [0,0,0],
+  [85, 65, 95],
+  [100, 105, 100],
+  [215, 115, 85],
+  [80, 140, 215],
+  [85, 65, 95],
+  [100, 105, 100],
+  [230, 200, 110],
+  [220, 245, 255],
+  ],
+  r: 1,
+  g: 1.2,
+  b: 1,
   },
 
 };
@@ -440,7 +456,7 @@ function renderPalettesWithIDs(paletteMap, onSelect) {
 }
 
 renderPalettesWithIDs(palettes, (selectedPalette, id) => {
-  palette = selectedPalette;
+  palette = selectedPalette; 
   r = palettes[id].r;
   g = palettes[id].g;
   b = palettes[id].b;
@@ -454,13 +470,12 @@ function resetUI() {
   pauseButton.classList.remove("hide-element");
   switchButton.classList.remove("hide-element");
 
-  saveButton.disabled = false;
-  discardButton.disabled = false;
   saveButton.classList.add("hide-element");
   discardButton.classList.add("hide-element");
-
+  
   const buttons = document.querySelectorAll(".palette-button");
   const overlay = document.getElementById("overlay");
+
 
   spinner.classList.add("hide-element");
   feedback.classList.add("hide-element");
@@ -468,7 +483,7 @@ function resetUI() {
   buttons.forEach(b => b.disabled = false);
 }
 
-function resetUIFail() {
+function resetUIFail(){
   saveButton.disabled = false;
   discardButton.disabled = false;
 
@@ -499,7 +514,7 @@ saveButton.addEventListener("click", () => {
 
 
 
-let mode = "portrait";
+let mode = "portrait"; 
 
 function updateCanvasMode() {
   if (mode === "square") {
@@ -524,8 +539,8 @@ function updateCanvasMode() {
     canvas.classList.remove("display");
     canvas.classList.add("position");
     canvas.style.height = "100vh";
-    canvas.style.width = `${(9 / 16) * 100}vh`;
-    // canvas.style.width = "100vw";
+    // canvas.style.width = `${(9 / 16) * 100}vh`;
+    canvas.style.width = "100vw";
   }
 }
 

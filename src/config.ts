@@ -10,7 +10,7 @@ export const publicClient = createPublicClient({
 });
 
 export async function getWalletClient() {
-  let provider;
+   let provider;
   try {
     provider = await sdk.wallet.getEthereumProvider();
   } catch {
@@ -27,7 +27,30 @@ export async function getWalletClient() {
     transport: custom(provider),
     account: accounts[0] as `0x${string}`,
   });
-}
+  // try {
+  //   if (!window.ethereum) {
+  //     throw new Error("No se detectó una wallet como MetaMask");
+  //   }
+
+  //   const accounts = await window.ethereum.request({
+  //     method: "eth_requestAccounts",
+  //   });
+
+  //   if (!accounts || accounts.length === 0) {
+    //     throw new Error("El usuario no concedió acceso a la wallet");
+    //   }
+    
+    //   return createWalletClient({    
+      //     chain: base,
+      //     transport: custom(window.ethereum),
+      //     account: accounts[0] as `0x${string}`,
+      //   });
+      // } catch (error) {
+        //   feedback.textContent = error instanceof Error ? error.message : "Error desconocido al conectar wallet";
+        //   console.error("Error en getWalletClient:", error);
+        //   throw error; 
+        // }
+  } 
 
 export async function connectWallet() {
   try {
@@ -37,7 +60,7 @@ export async function connectWallet() {
   } catch (error) {
     feedback.textContent = "No se pudo conectar la wallet";
     console.error("Error en connectWallet:", error);
-    return null;
+    return null; 
   }
 }
 
