@@ -7,18 +7,18 @@
   "frame": {
     "version": "1",
     "name": "Kyblu Cam",
-    "iconUrl": "https://kyblu-camera.vercel.app/Kyblucam-icon.png",
+    "iconUrl": "https://kyblu-camera.vercel.app/Kyblucam-icon1024.png",
     "buttonTitle": "Take a pixel shot",
-    "splashImageUrl": "https://kyblu-camera.vercel.app/Kyblucam-icon.png",
-    "splashBackgroundColor": "#f977ff",
+    "splashImageUrl": "https://kyblu-camera.vercel.app/Kyblucam-icon200x200.png",
+    "splashBackgroundColor": "#0086ff",
     "homeUrl": "https://kyblu-camera.vercel.app/",
-    "imageUrl": "https://kyblu-camera.vercel.app/Kyblucam-icon.png",
+    "imageUrl": "https://kyblu-camera.vercel.app/imageUrl.png",
     "webhookUrl": "https://kyblu-camera.vercel.app/api/webhook"
   },
   "miniApp": {
     "name": "Kyblu Cam",
     "description": "Take a pixel shot and coin it in Zora",
-    "iconUrl": "https://kyblu-camera.vercel.app/Kyblucam-icon.png",
+    "iconUrl": "https://kyblu-camera.vercel.app/Kyblucam-icon1024.png",
     "primaryCategory": "entertainment",
     "tags": [
       "pixelart",
@@ -30,17 +30,17 @@
     ],
     "url": "https://kyblu-camera.vercel.app/",
     "buttonTitle": "Take a pixel shot",
-    "splashImageUrl": "https://kyblu-camera.vercel.app/Kyblucam-icon.png",
+    "splashImageUrl": "https://kyblu-camera.vercel.app/Kyblucam-icon200x200.png",
     "splashBackgroundColor": "#eaaded",
     "subtitle": "Take a pixel shot",
     "screenshotUrls": [
-      "https://kyblu-camera.vercel.app/Screenshot.png"
+      "https://kyblu-camera.vercel.app/screenshoturl1.png", "https://kyblu-camera.vercel.app/screenshoturl2.png", "https://kyblu-camera.vercel.app/screenshoturl3.png"
     ],
-    "heroImageUrl": "https://kyblu-camera.vercel.app/Kyblucam-icon.png",
+    "heroImageUrl": "https://kyblu-camera.vercel.app/heroOg.png",
     "tagline": "Take a pixel shot",
     "ogTitle": "Take a pixel shot",
     "ogDescription": "Capture photos in pixel art by exploring different palettes and formats, and then mint your memories forever in Zora",
-    "ogImageUrl": "https://kyblu-camera.vercel.app/Kyblucam-icon.png",
+    "ogImageUrl": "https://kyblu-camera.vercel.app/heroOg.png",
     "castShareUrl": "https://kyblu-camera.vercel.app"
   }
 }
